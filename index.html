@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3.4.26/dist/vue.global.prod.js"></script>
+</head>
+<body id="app">
+    <div id="titulo">
+        <h1>{{ titulo }}</h1>
+        <div class="busquedas">
+            <input type="text" class="inputBusquedas" placeholder="Buscar productos">
+            <button id="BtnBuscar">Buscar</button>
+        </div>
+        <img id="carrito" src="imagenes/carritocompras.avif" alt="Carrito de compras">
+        <div class="cart">{{ cart }}</div>
+    </div>
+    <div class="container">
+        <div class="imagenes">
+            <img :src="imagenPrincipal" id="imgPrincipal" alt="Imagen del globo purpura">
+        </div>
+        <div class="imagenSecundaria">
+            <img v-for="variante in variantes" :src="variante.imagen" :key="variante.id"
+                 @mouseover="updateImage(variante.imagen)"
+                 @mouseleave="resetImage(imagenOriginal)"
+                 :alt="'Imagen del globo ' + variante.color">
+        </div>
+        <div class="DescProducto">
+            <h3>{{ producto }}</h3>
+            <ul>
+                <li v-for="descripcions in descripcion">{{ descripcions }}</li>
+            </ul>
+            <button class="Comprar">Comprar Ahora</button>
+            <button class="Agregar" 
+            :disabled="!stock"
+            @click="AddToCart">Añadir al carrito</button>
+            <div id="stock">
+                <p v-if="stock > 100">Tenemos stock</p>
+                <p v-else-if="stock > 0">Nos quedan pocas unidades</p>
+                <p v-else>No tenemos stock</p>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
